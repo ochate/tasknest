@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>ホーム</title>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            <h1>こんにちは、{{ user.username }}さん！</h1>
+            <p>あなたはログインしています。</p>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">ログアウト</button>
+            </form>
+        {% else %}
+            <h1>ようこそ TaskNest へ！</h1>
+            <p>ログインしてください。</p>
+            <a href="{% url 'login' %}">ログイン</a>
+        {% endif %}
+    </body>
+</html>
