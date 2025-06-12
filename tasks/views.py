@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TaskForm
@@ -20,3 +20,8 @@ def task_create(request):
     else:
         form = TaskForm()
     return render(request, 'tasks/task_form.html', {'form': form})
+
+@login_required
+def task_detail(request, pk):
+    task = get_object_or_404(Task, pk=pk, user=request.user)
+    return render(request, 'tasks/task_detail.html', {'task': task})

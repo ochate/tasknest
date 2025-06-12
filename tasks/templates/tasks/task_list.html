@@ -3,7 +3,7 @@
 
 <ul>
     {% for task in tasks %}
-        <li>{{ task.title }} : {{ task.description }}</li>
+        <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }} : {{ task.description }}</a></li>
     {% empty %}
         <li>タスクがありません。</li>
     {% endfor %}

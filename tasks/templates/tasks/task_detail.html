@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>タスク詳細</title>
+</head>
+<body>
+    <h1>{{ task.title }}</h1>
+    <p><strong>説明：</strong>{{ task.description|linebreaks }}</p>
+    <p><strong>期限日：</strong>{{ task.due_date }}</p>
+    <p><strong>状態：</strong>{{ task.get_status_display }}</p>
+
+    <p><a href="{% url 'task_list' %}">← タスク一覧に戻る</a></p>
+</body>
+</html>
