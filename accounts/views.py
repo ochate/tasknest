@@ -1,16 +1,18 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.auth import login
 
 # サインアップ（新規登録）画面
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')    # 後で作るログイン画面へ
+            user = form.save()
+            login(request, user)
+            return redirect('home')
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/signup.html', {'form':form})
+    return render(request, 'registration/signup.html', {'form':form})
 
 # 仮トップページ表示用の関数
 def home_view(request):

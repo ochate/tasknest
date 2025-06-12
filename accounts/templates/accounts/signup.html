@@ -1,7 +1,0 @@
-<!-- signup_view の中で render() によってこのHTMLが読み込まれ、ブラウザに表示される -->
-<h2>Sign Up</h2>
-<form method="post">
-    {% csrf_token %}    <!--Djangoのセキュリティ用トークン（CSRF対策）-->
-    {{ form.as_p }}
-    <button type="submit">サインアップ</button> 
-</form>
