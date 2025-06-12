@@ -41,3 +41,11 @@ def task_edit(request, pk):
     else:
         form = TaskForm(instance=task)
     return render(request, 'tasks/task_form.html', {'form': form})
+
+# タスク削除
+def task_delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "POST":
+        task.delete()
+        return redirect('task_list')
+    return render(request, 'tasks/task_confirm_delete.html', {'task': task})

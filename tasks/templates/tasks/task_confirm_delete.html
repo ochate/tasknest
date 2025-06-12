@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>タスクの削除確認</title>
+</head>
+<body>
+    <h1>「{{ task.title }}」を削除しますか？</h1>
+    <p>この操作は取り消せません。</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">削除する</button>
+        <a href="{% url 'task_detail' task.pk %}">キャンセル</a>
+    </form>
+</body>
+</html>

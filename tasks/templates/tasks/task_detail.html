@@ -10,5 +10,6 @@
     <p><strong>状態：</strong>{{ task.get_status_display }}</p>
 
     <p><a href="{% url 'task_list' %}">← タスク一覧に戻る</a></p>
+    <p><a href="{% url 'task_delete' task.pk %}">このタスクを削除</a></p>
 </body>
 </html>
