@@ -13,8 +13,9 @@
             </form>
         {% else %}
             <h1>ようこそ TaskNest へ！</h1>
-            <p>ログインしてください。</p>
-            <a href="{% url 'login' %}">ログイン</a>
+            <p>TaskNestはタスク管理アプリケーションです。</p>
+            <p><a href="{% url 'login' %}">ログインはこちら</a></p>
+            <p><a href="{% url 'signup' %}">新規登録はこちら</a></p>
         {% endif %}
     </body>
 </html>
