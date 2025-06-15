@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新しいタスクの作成</title>
+    <title>{% if is_edit %}タスクの編集{% else %}新しいタスクの作成{% endif %}</title>
 </head>
 <body>
-    <h1>タスクの作成</h1>
+    <h1>{% if is_edit %}タスクの編集{% else %}タスクの作成{% endif %}</h1>
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">保存</button>
+        <button type="submit">{% if is_edit %}更新{% else %}保存{% endif %}</button>
     </form>
 
     <p><a href="{%url 'task_list' %}">タスク一覧に戻る</a></p>

@@ -20,10 +20,13 @@ def task_create(request):
             task.user = request.user
             task.save()
             messages.success(request, 'タスクを作成しました。')
-            return redirect('task_list')
+            return redirect('task_detail', pk=task.pk)
     else:
         form = TaskForm()
-    return render(request, 'tasks/task_form.html', {'form': form})
+    return render(request, 'tasks/task_form.html', {
+        'form': form,
+        'is_edit': False,
+        })
 
 # タスク詳細
 @login_required
@@ -43,7 +46,10 @@ def task_edit(request, pk):
             return redirect('task_detail', pk=task.pk)
     else:
         form = TaskForm(instance=task)
-    return render(request, 'tasks/task_form.html', {'form': form})
+    return render(request, 'tasks/task_form.html', {
+        'form': form,
+        'is_edit': True,
+        })
 
 # タスク削除
 @login_required
