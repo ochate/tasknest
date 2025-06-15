@@ -1,45 +1,63 @@
 <!DOCTYPE html>
-<h2>{{ request.user.username }} さんのタスク一覧</h2>
+<html>
 
-<!-- 処理後のメッセージを表示 -->
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ masssage.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+<head>
+    <title>{{ request.user.username }} さんのタスク一覧</title>
+</head>
 
-<p><a href="{% url 'task_create' %}">＋新しいタスクを作成</a></p>
+<body>
+    <!-- 処理後のメッセージを表示 -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ messsage.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-<!-- 検索フォーム -->
-<form method="get">
-    <input type="text" name="q" placeholder="タイトルで検索" value="{{ query }}">
-    <button type="submit">検索</button>
-</form>
+    <p><a href="{% url 'task_create' %}">＋新しいタスクを作成</a></p>
 
-<!-- 並び替え -->
-<p>
-    並び替え：
-    <a href="?sort=title">タイトル順</a> |
-    <a href="?sort=due_date">日付順</a>
-</p>
+    <!-- 検索フォーム -->
+    <form method="get">
+        <input type="text" name="q" placeholder="タイトルやキーワード" value="{{ request.GET.q }}">
 
-<!-- タイトルと内容説明、またはタスクなしと表示 -->
-<ul>
-    {% for task in tasks %}
-        <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }} : {{ task.description }}</a></li>
-    {% empty %}
-        <li>タスクがありません。</li>
-    {% endfor %}
-</ul>
+        <!-- 絞り込み -->
+        <select name="status">
+            <option value="">すべての状態</option>
+            <option value="todo" {% if status_filter == 'todo' %}selected{% endif %}>未着手</option>
+            <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>進行中</option>
+            <option value="done" {% if status_filter == 'done' %}selected{% endif %}>完了</option>
+        </select>
 
-{% if query %}
-    <p><a href="{% url 'task_list' %}">← タスク一覧に戻る</a></p>
-{% endif %}
+        <button type="submit">検索・絞り込み</button>
+    </form>
 
-<!-- ログアウトボタンでaccounts/loginへ遷移 -->
-<form action="{% url 'logout' %}" method="POST">
-    {% csrf_token %}
-    <p><button type="submit">ログアウト</button></p>
-</form>
+    <!-- 並び替え -->
+    <p>
+        並び替え：
+        <a href="?q={{ request.GET.q }}&atatus={{ requests.GET.status }}&?sort=title">タイトル順</a> |
+        <a href="?q={{ request.GET.q }}&atatus={{ requests.GET.status }}&?sort=due_date">日付順</a>
+    </p>
+
+    <!-- タイトルと内容説明、またはタスクなしと表示 -->
+    <ul>
+        {% for task in tasks %}
+            <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }} : {{ task.description }}</a></li>
+        {% empty %}
+            <li>タスクがありません。</li>
+        {% endfor %}
+    </ul>
+
+    {% if query %}
+        <p><a href="{% url 'task_list' %}">← タスク一覧に戻る</a></p>
+    {% endif %}
+
+    <!-- ログアウトボタンでaccounts/loginへ遷移 -->
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <p><button type="submit">ログアウト</button></p>
+    </form>
+
+</body>
+
+</html>

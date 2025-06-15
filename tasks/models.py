@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 class Task(models.Model):
     STATUS_CHOICES = [
-        ('todo', 'To Do'),
-        ('in_progress', 'In Progress'),
-        ('done', 'Done'),
+        ('todo', '未着手'),
+        ('in_progress', '進行中'),
+        ('done', '完了'),
     ]
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)    # タスク所有者
