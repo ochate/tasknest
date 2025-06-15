@@ -25,8 +25,6 @@ def task_list(request):
         tasks =tasks.order_by('title')
     elif sort == 'due_date':
         tasks = tasks.order_by('due_date')
-    else:
-        tasks = tasks.filter(user=request.user)
 
     return render(request, 'tasks/task_list.html', {
         'tasks': tasks,

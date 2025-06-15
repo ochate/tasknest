@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <h1>{{ request.user.username }} さんのタスク一覧</h2>
+    <h1>{{ request.user.username }} さんのタスク一覧</h1>
     <!-- 処理後のメッセージを表示 -->
     {% if messages %}
     <ul class="messages">
@@ -35,8 +35,8 @@
     <!-- 並び替え -->
     <p>
         並び替え：
-        <a href="?q={{ query }}&status={{ status_filter }}&sort=title">タイトル順</a> |
-        <a href="?q={{ query }}&status={{ status_filter }}&sort=due_date">日付順</a>
+        <a href="?{% if query %}q={{ query }}&{% endif %}{% if status_filter %}status={{ status_filter }}&{% endif %}sort=title">タイトル順</a> |
+        <a href="?{% if query %}q={{ query }}&{% endif %}{% if status_filter %}status={{ status_filter }}&{% endif %}sort=due_date">日付順</a>
     </p>
 
     <!-- タイトルと内容説明、またはタスクなしと表示 -->
