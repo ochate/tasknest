@@ -4,6 +4,7 @@
     <title>タスクの削除確認</title>
 </head>
 <body>
+    <!-- 処理後のメッセージを表示 -->
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -13,7 +14,7 @@
     {% endif %}
 
     <h1>「{{ task.title }}」を削除しますか？</h1>
-    <p>この操作は取り消せません。</p>
+    <p><h2>この操作は取り消せません。</h2></p>
 
     <form method="post">
         {% csrf_token %}

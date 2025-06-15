@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <h2>{{ request.user.username }}さんのタスク一覧</h2>
 
+<!-- 処理後のメッセージを表示 -->
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -9,8 +10,15 @@
 </ul>
 {% endif %}
 
-<a href="{% url 'task_create' %}">＋新しいタスクを作成</a>
+<p><a href="{% url 'task_create' %}">＋新しいタスクを作成</a></p>
 
+<!-- 検索フォーム -->
+<form method="get">
+    <input type="text" name="q" placeholder="タイトルで検索" value="{{ query }}">
+    <button type="submit">検索</button>
+</form>
+
+<!-- タイトルと内容説明、またはタスクなしと表示 -->
 <ul>
     {% for task in tasks %}
         <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }} : {{ task.description }}</a></li>
@@ -19,6 +27,11 @@
     {% endfor %}
 </ul>
 
+{% if query %}
+    <p><a href="{% url 'task_list' %}">← タスク一覧に戻る</a></p>
+{% endif %}
+
+<!-- ログアウトボタンでaccounts/loginへ遷移 -->
 <form action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
     <p><button type="submit">ログアウト</button></p>

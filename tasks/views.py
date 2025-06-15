@@ -7,8 +7,12 @@ from django.contrib import messages
 # タスク一覧
 @login_required
 def task_list(request):
-    tasks = Task.objects.filter(user=request.user)
-    return render(request, 'tasks/task_list.html', {'tasks': tasks})
+    query = request.GET.get('q')
+    if query:
+        tasks = Task.objects.filter(user=request.user, title__icontains=query)
+    else:
+        tasks = Task.objects.filter(user=request.user)
+    return render(request, 'tasks/task_list.html', {'tasks': tasks, 'query': query})
 
 # タスク新規作成
 @login_required
