@@ -7,12 +7,21 @@ from django.contrib import messages
 # タスク一覧
 @login_required
 def task_list(request):
-    query = request.GET.get('q')
-    if query:
-        tasks = Task.objects.filter(user=request.user, title__icontains=query)
+    sort = request.GET.get('sort')
+    if sort == 'title':
+        tasks = Task.objects.filter(user=request.user).order_by('title')
+    elif sort == 'due_date':
+        tasks = Task.objects.filter(user=request.user).order_by('due_date')
     else:
         tasks = Task.objects.filter(user=request.user)
-    return render(request, 'tasks/task_list.html', {'tasks': tasks, 'query': query})
+        
+    query = request.GET.get('q')
+    if query:
+        tasks = tasks.filter(title__icontains=query)
+    return render(request, 'tasks/task_list.html', {
+        'tasks': tasks,
+        'query': query,
+        })
 
 # タスク新規作成
 @login_required

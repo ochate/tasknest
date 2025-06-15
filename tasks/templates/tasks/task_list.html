@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<h2>{{ request.user.username }}さんのタスク一覧</h2>
+<h2>{{ request.user.username }} さんのタスク一覧</h2>
 
 <!-- 処理後のメッセージを表示 -->
 {% if messages %}
@@ -17,6 +17,13 @@
     <input type="text" name="q" placeholder="タイトルで検索" value="{{ query }}">
     <button type="submit">検索</button>
 </form>
+
+<!-- 並び替え -->
+<p>
+    並び替え：
+    <a href="?sort=title">タイトル順</a> |
+    <a href="?sort=due_date">日付順</a>
+</p>
 
 <!-- タイトルと内容説明、またはタスクなしと表示 -->
 <ul>
