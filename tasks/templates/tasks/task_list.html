@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>{{ request.user.username }} さんのタスク一覧</title>
 </head>
 
 <body>
+    <h1>{{ request.user.username }} さんのタスク一覧</h2>
     <!-- 処理後のメッセージを表示 -->
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ messsage.tags }}"{% endif %}>{{ message }}</li>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
     </ul>
     {% endif %}
@@ -35,8 +35,8 @@
     <!-- 並び替え -->
     <p>
         並び替え：
-        <a href="?q={{ request.GET.q }}&atatus={{ requests.GET.status }}&?sort=title">タイトル順</a> |
-        <a href="?q={{ request.GET.q }}&atatus={{ requests.GET.status }}&?sort=due_date">日付順</a>
+        <a href="?q={{ query }}&status={{ status_filter }}&sort=title">タイトル順</a> |
+        <a href="?q={{ query }}&status={{ status_filter }}&sort=due_date">日付順</a>
     </p>
 
     <!-- タイトルと内容説明、またはタスクなしと表示 -->

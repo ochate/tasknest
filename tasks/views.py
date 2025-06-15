@@ -14,33 +14,25 @@ def task_list(request):
     if query:
         tasks = tasks.filter(title__icontains=query)
 
-    # 並び替え
+    # 絞り込み
     status_filter = request.GET.get('status')
     if status_filter:
         tasks = tasks.filter(status=status_filter)
 
+    # 並び替え
+    sort = request.GET.get('sort')
+    if sort == 'title':
+        tasks =tasks.order_by('title')
+    elif sort == 'due_date':
+        tasks = tasks.order_by('due_date')
+    else:
+        tasks = tasks.filter(user=request.user)
+
     return render(request, 'tasks/task_list.html', {
         'tasks': tasks,
+        'query': query,
         'status_filter': status_filter,
     })
-
-    # 並び替え
-    # sort = request.GET.get('sort')
-    # if sort == 'title':
-    #     tasks = Task.objects.filter(user=request.user).order_by('title')
-    # elif sort == 'due_date':
-    #     tasks = Task.objects.filter(user=request.user).order_by('due_date')
-    # else:
-    #     tasks = Task.objects.filter(user=request.user)
-    
-    # 検索
-    # query = request.GET.get('q')
-    # if query:
-    #     tasks = tasks.filter(title__icontains=query)
-    # return render(request, 'tasks/task_list.html', {
-    #     'tasks': tasks,
-    #     'query': query,
-    #     })
 
 # タスク新規作成
 @login_required
