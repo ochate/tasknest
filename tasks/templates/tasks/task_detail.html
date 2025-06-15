@@ -9,7 +9,10 @@
     <p><strong>期限日：</strong>{{ task.due_date }}</p>
     <p><strong>状態：</strong>{{ task.get_status_display }}</p>
 
-    <p><a href="{% url 'task_list' %}">← タスク一覧に戻る</a></p>
-    <p><a href="{% url 'task_delete' task.pk %}">このタスクを削除</a></p>
+    <p>
+    <a href="{% url 'task_list' %}">← タスク一覧に戻る</a> |
+    <a href="{% url 'task_edit' task.pk %}">編集する</a> |
+    <a href="{% url 'task_delete' task.pk %}">削除する</a>
+    </p>
 </body>
 </html>

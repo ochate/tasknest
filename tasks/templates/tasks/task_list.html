@@ -9,6 +9,8 @@
 </ul>
 {% endif %}
 
+<a href="{% url 'task_create' %}">＋新しいタスクを作成</a>
+
 <ul>
     {% for task in tasks %}
         <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }} : {{ task.description }}</a></li>
@@ -16,8 +18,6 @@
         <li>タスクがありません。</li>
     {% endfor %}
 </ul>
-
-<a href="{% url 'task_create' %}">＋新しいタスクを作成</a>
 
 <form action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
