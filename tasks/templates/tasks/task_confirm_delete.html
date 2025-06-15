@@ -4,13 +4,22 @@
     <title>タスクの削除確認</title>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ masssage.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <h1>「{{ task.title }}」を削除しますか？</h1>
     <p>この操作は取り消せません。</p>
 
     <form method="post">
         {% csrf_token %}
         <button type="submit">削除する</button>
-        <a href="{% url 'task_detail' task.pk %}">キャンセル</a>
+        <p><a href="{% url 'task_detail' task.pk %}">キャンセル</a></p>
     </form>
+
 </body>
 </html>

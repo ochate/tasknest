@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <h2>{{ request.user.username }}さんのタスク一覧</h2>
 
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ masssage.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <ul>
     {% for task in tasks %}
         <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }} : {{ task.description }}</a></li>
@@ -11,15 +19,7 @@
 
 <a href="{% url 'task_create' %}">＋新しいタスクを作成</a>
 
-<!-- <a> タグは GETリクエストを送るため、405エラー（Method Not Allowed）になります
-Django の LogoutView は POST メソッド限定だからです。
-これは「ログアウトさせるリンクを他のサイトに貼られたら自動ログアウトしてしまう」などの CSRF攻撃を防ぐためです。
-なお、これはログアウト」や「データ削除」のような 重要な操作を GET で行う ことを問題としており、GETでページを移動するリンクなどは問題ありません
-Djangoではログアウトは「POSTで安全に行うべき」とされているため、ログアウトリンクだけは <form method="post"> で書くのが推奨されます
--->
-<!-- <a href="{% url 'logout' %}">ログアウト</a> -->
-
 <form action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
-    <button type="submit">ログアウト</button>
+    <p><button type="submit">ログアウト</button></p>
 </form>
